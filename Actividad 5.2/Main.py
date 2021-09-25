@@ -13,8 +13,12 @@ class main_menu:
         self.file_label=Label(root,text="Archivo seleccionado: ",font=("Arial",14))
         self.load_file_button=Button(root,text="Cargar archivo CSV",command=self.loadFile,bg="sky blue")
         self.load_file_button.config(height=2,width=15)
+        self.target_label=Label(root,text="Nombre del atributo clase:",font=("Arial",14))
+        self.target_entry=Entry(root)
         self.repeat_label=Label(root,text="Número de iteraciones:",font=("Arial",14))
         self.repeat_times=Spinbox(root,from_=1,to=100000000000000000000000)
+        self.test_label=Label(root,text="Porcentaje de datos para prueba:",font=("Arial",14))
+        self.test_percent=Spinbox(root,from_=0,to=100)
         self.start_label=Label(root,text="Iniciar Evaluación de Modelos:",font=("Arial",14))
         self.start_evaluation_button=Button(root,text="Iniciar",command=self.startEvaluation,bg="sky blue",state=DISABLED)
         self.start_evaluation_button.config(height=2,width=15)
@@ -26,11 +30,18 @@ class main_menu:
         self.title.pack()
         self.file_label.pack()
         self.load_file_button.pack()
+        self.target_label.pack()
+        self.target_entry.pack()
         self.repeat_label.pack()
         self.repeat_times.pack()
+        self.test_label.pack()
+        self.test_percent.pack()
         self.start_label.pack()
         self.start_evaluation_button.pack()
     
+    def showResults(self):
+        pass
+
     
     def loadFile(self):
         filename = filedialog.askopenfilename(initialdir=".")
@@ -43,7 +54,8 @@ class main_menu:
             self.start_evaluation_button.config(state=NORMAL)
 
     def startEvaluation(self):
-        pass
+        params = {"testPercent":int(self.test_percent.get()),"repeatTimes":int(self.repeat_times.get()),"Class":self.target_entry.get()}
+        self.functions.evaluation(params)
    
 
 
