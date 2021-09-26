@@ -25,14 +25,37 @@ class Function:
         self.train_data = self.data[testAmount:]
     
     #Chimi's function
-    def zeroR(self,n):
-        pass
+    def zeroR(self,clase = 'Clase'):
+        #Encontramos el valor mas repetido
+        valor = self.train_data[clase].mode().iloc[0]
+        #Cuenta las veces que el nombre se repite
+        radio = self.test_data[self.test_data.eq(valor).any(1)].count().max()
+        #Numero de veces que aparece
+        clases = self.test_data.groupby([clase]).size().max()
+         #Numero total de registros
+        total_registros = self.test_data.count().max()
+        #Porcentaje aciertos a partir del promedio
+        aciertos = (clases/total_registros)*100 
+        #Porcentaje de erroes 
+        errores = 100 - aciertos
+
+        return aciertos
+        #pass
+        
 
     #Marijo's function
     def oneR(self,n):
         pass
     
     def evaluation(self,params):
+        zeroA=0
+        oneA=0
         for i in range(0,params["repeatTimes"]):
             self.split_data(params["testPercent"])
+            aux = self.zeroR(params['Class'])
+            zeroA+=aux
+            self.zero_evaluation.append(str(aux))
+        zeroA=zeroA/params["repeatTimes"]
+        ans = {"zeroR":self.zero_evaluation,"oneR":self.one_evaluation,"zeroA":zeroA,"oneA":oneA}
+        return ans
             

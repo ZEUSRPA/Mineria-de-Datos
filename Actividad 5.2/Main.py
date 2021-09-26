@@ -22,6 +22,10 @@ class main_menu:
         self.start_label=Label(root,text="Iniciar Evaluación de Modelos:",font=("Arial",14))
         self.start_evaluation_button=Button(root,text="Iniciar",command=self.startEvaluation,bg="sky blue",state=DISABLED)
         self.start_evaluation_button.config(height=2,width=15)
+        self.zero_label=Label(root,text="Resultados Zero-R",font=("Arial",14))
+        self.zero_results=Label(root,font=("Arial",12))
+        self.one_label=Label(root,text="Resultados One-R",font=("Arial",14))
+        self.one_results=Label(root,font=("Arial",12))
         self.functions=Function()
 
 
@@ -38,9 +42,25 @@ class main_menu:
         self.test_percent.pack()
         self.start_label.pack()
         self.start_evaluation_button.pack()
+        self.zero_label.pack()
+        self.zero_results.pack()
+        self.one_label.pack()
+        self.one_results.pack()
     
-    def showResults(self):
-        pass
+    def showResults(self,results):
+        showing=""
+        for x in results['zeroR']:
+            showing=showing+x+'\n'
+        showing=showing + "Promedio de aciertos: "+str(results['zeroA'])+'\n'
+        showing=showing + "Promedio de errores: "+str(100-results['zeroA'])+'\n'
+
+        self.zero_results.config(text=showing)
+        showing=""
+        for x in results['oneR']:
+            showing=showing+x+'\n'
+        showing=showing + "Promedio de aciertos: "+str(results['oneA'])+'\n'
+        showing=showing + "Promedio de errores: "+str(100-results['oneA'])+'\n'
+        self.one_results.config(text=showing)
 
     
     def loadFile(self):
@@ -55,7 +75,7 @@ class main_menu:
 
     def startEvaluation(self):
         params = {"testPercent":int(self.test_percent.get()),"repeatTimes":int(self.repeat_times.get()),"Class":self.target_entry.get()}
-        self.functions.evaluation(params)
+        self.showResults(self.functions.evaluation(params))
    
 
 
