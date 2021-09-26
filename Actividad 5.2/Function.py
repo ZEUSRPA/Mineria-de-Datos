@@ -19,10 +19,14 @@ class Function:
 
     #Split data for train and test
     def split_data(self,testPercent):
-        testAmount = len(self.data)*testPercent//100
-        self.data=self.data.sample(frac=1)
-        self.test_data = self.data[:testAmount]
-        self.train_data = self.data[testAmount:]
+        if(testPercent==0 or testPercent==100):
+            self.test_data=self.data
+            self.train_data=self.data
+        else:
+            testAmount = len(self.data)*testPercent//100
+            self.data=self.data.sample(frac=1)
+            self.test_data = self.data[:testAmount]
+            self.train_data = self.data[testAmount:]
     
     #Chimi's function
     def zeroR(self,clase = 'Clase'):
@@ -48,14 +52,19 @@ class Function:
         pass
     
     def evaluation(self,params):
+        self.one_evaluation=[]
+        self.zero_evaluation=[]
         zeroA=0
         oneA=0
-        for i in range(0,params["repeatTimes"]):
-            self.split_data(params["testPercent"])
-            aux = self.zeroR(params['Class'])
-            zeroA+=aux
-            self.zero_evaluation.append(str(aux))
+        ok=False
+        if params['Class'] in self.data:
+            ok=True
+            for i in range(0,params["repeatTimes"]):
+                self.split_data(params["testPercent"])
+                aux = self.zeroR(params['Class'])
+                zeroA+=aux
+                self.zero_evaluation.append(aux)
         zeroA=zeroA/params["repeatTimes"]
-        ans = {"zeroR":self.zero_evaluation,"oneR":self.one_evaluation,"zeroA":zeroA,"oneA":oneA}
+        ans = {"OK":ok,"zeroR":self.zero_evaluation,"oneR":self.one_evaluation,"zeroA":zeroA,"oneA":oneA}
         return ans
             
