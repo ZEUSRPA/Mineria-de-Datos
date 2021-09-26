@@ -11,21 +11,31 @@ from Function import *
 #Frame utilizado para mostrar los graficos
 class graph_frame(Frame):
     def __init__(self):
+        """Constructor de la clase graph_frame
+        """
         Frame.__init__(self,root)
        
     
     def add_graph(self,fig):
+        """Funcion para agregar una figura en el frame
+        Parametros:
+        fig:plt.figure
+            Indica la figura que se va a insertar en el frame
+        """
         self.mpl_canvas=FigureCanvasTkAgg(fig,self)
         
         self.mpl_canvas.get_tk_widget().pack(fill=BOTH,expand=True)
         self.mpl_canvas._tkcanvas.pack( fill=BOTH, expand=True)
     def remove_graph(self):
+        """Elimina la figura del frame"""
         self.mpl_canvas.get_tk_widget().pack_forget()
         self.mpl_canvas._tkcanvas.pack_forget()
         del self.mpl_canvas
 
 class main_menu:
     def __init__(self) -> None:
+        """Constructor de la clase main_menu
+        """
         self.title=Label(root, text="Algoritmos Zero-R y One-R",font=("Arial",25))
         self.file_label=Label(root,text="Archivo seleccionado: ",font=("Arial",14))
         self.load_file_button=Button(root,text="Cargar archivo CSV",command=self.loadFile,bg="sky blue")
@@ -50,6 +60,7 @@ class main_menu:
 
 
     def load_charts(self):
+        """Funcion para cargar los graficos en la interfaz"""
         self.graph_frame=graph_frame()
         self.figure=plt.Figure(figsize=(12,10))
         self.graph_frame.add_graph(self.figure)
@@ -67,6 +78,7 @@ class main_menu:
 
     #Muestra la vista principal
     def show(self):
+        """Funcion para mostrar la vista principal"""
         self.title.pack()
         self.file_label.pack()
         self.load_file_button.pack()
@@ -85,6 +97,20 @@ class main_menu:
         self.graph_frame.pack()
     
     def showResults(self,results):
+        """Funcion para mostrar en pantalla los resultados de la evaluacion de los algoritmos
+        Parametros:
+        results:dictionary
+            OK:bool
+                Se utiliza para verificar que no existan errores en la ejecucion
+            zeroR:list
+                Lista de los resultados obtenidos para el algoritmo zero-R
+            oneR:list
+                Lista de los resultados obtenidos para el algoritmo one-R
+            zeroA:float
+                Indica el promedio de aciertos de zero-R
+            oneA:float
+                Indica el promedio de aciertos de one-R
+        """
         if results['OK'] == False:
             messagebox.showerror("Nombre Clase","El nombre de la clase no se encuentra en el archivo")
             return
