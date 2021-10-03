@@ -94,7 +94,7 @@ class main_menu:
             OK:bool
                 Se utiliza para verificar que no existan errores en la ejecucion
             naive:list
-                Lista de los resultados obtenidos para el algoritmo zero-R
+                Lista de los resultados obtenidos para el algoritmo
             naiveA:float
                 Indica el promedio de aciertos de Naïve Bayes
         """
