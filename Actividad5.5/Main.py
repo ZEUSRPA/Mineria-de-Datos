@@ -103,14 +103,14 @@ class main_menu:
             return
         self.naive_evaluation=results['naive']
         showing=""
-        # for x in results['zeroR']:
+        # for x in results['NaiveBayes']:
         #     showing=showing+x+'\n'
         showing=showing + "Promedio de aciertos: "+str(results['naiveA'])+'\n'
         showing=showing + "Promedio de errores: "+str(100-results['naiveA'])+'\n'
 
         self.naive_results.config(text=showing)
         showing=""
-        # for x in results['oneR']:
+        # for x in results['NaivBayes']:
         #     showing=showing+x+'\n'
         del self.naiveGraph.lines[0]
         self.naiveGraph.plot(self.naive_evaluation)

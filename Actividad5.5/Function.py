@@ -6,7 +6,7 @@ from pandas.api.types import is_numeric_dtype
 from pandas.api.types import is_bool_dtype
 from pandas.core.algorithms import mode
 
-#Clase que contiene las funciones para ejecutar la evaluacion con los algoritmos zero-R y one-R
+#Clase que contiene las funciones para ejecutar la evaluacion con los algoritmos  Naive Bayes
 class Function:
     #Constructor de la clase
     def __init__(self) -> None:
@@ -178,7 +178,7 @@ class Function:
         print("acc: ",acc)
         return acc*100/tot
 
-    #Funcion para ejecutar los algoritmos zero-R y one-R
+    #Funcion para ejecutar los algoritmos  Naive Bayes
     def evaluation(self,params):
         """Ejecutar evaluacion con el algoritmo naive bayes
         Parametros:
