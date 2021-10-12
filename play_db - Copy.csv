@@ -1,4 +1,5 @@
 Outlook,Temp,Humidity,Windy,Play
+Categorico,Numerico,Numerico,Binario,Categorico
 overcast,83,86.8,FALSE,No
 overcast,64,65,TRUE,No
 overcast,72,90,TRUE,Yes
